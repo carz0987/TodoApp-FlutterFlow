@@ -123,7 +123,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                             )
                             .where(
                               'completed',
-                              isEqualTo: false,
+                              isNotEqualTo: true,
                             ),
                       ),
                       builder: (context, snapshot) {
@@ -175,7 +175,12 @@ class _TasksWidgetState extends State<TasksWidget> {
                                 key: Key(
                                     'Keyslr_${listViewIndex}_of_${listViewTasksRecordList.length}'),
                                 tasksDocument: listViewTasksRecord,
-                                checkAction: () async {},
+                                checkAction: () async {
+                                  await listViewTasksRecord.reference
+                                      .update(createTasksRecordData(
+                                    completed: true,
+                                  ));
+                                },
                               ),
                             );
                           },

@@ -156,7 +156,12 @@ class _CompletedWidgetState extends State<CompletedWidget> {
                               key: Key(
                                   'Key7r1_${listViewIndex}_of_${listViewTasksRecordList.length}'),
                               tasksDocument: listViewTasksRecord,
-                              checkAction: () async {},
+                              checkAction: () async {
+                                await listViewTasksRecord.reference
+                                    .update(createTasksRecordData(
+                                  completed: false,
+                                ));
+                              },
                             );
                           },
                         );
