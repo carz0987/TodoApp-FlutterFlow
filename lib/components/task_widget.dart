@@ -77,8 +77,6 @@ class _TaskWidgetState extends State<TaskWidget> {
                   safeSetState(() => _model.checkboxValue = newValue!);
                   if (newValue!) {
                     await widget.checkAction?.call();
-                  } else {
-                    await widget.checkAction?.call();
                   }
                 },
                 side: BorderSide(
