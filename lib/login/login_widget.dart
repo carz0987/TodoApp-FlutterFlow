@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -747,6 +748,24 @@ class _LoginWidgetState extends State<LoginWidget>
                                   !_model.formKey2.currentState!.validate()) {
                                 return;
                               }
+                              await SendEmailCall.call(
+                                to: _model.signupEmailTextController.text,
+                              );
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Welcome! Check your email!',
+                                    style: TextStyle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
+                                  ),
+                                  duration: const Duration(milliseconds: 4000),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).secondary,
+                                ),
+                              );
                               GoRouter.of(context).prepareAuthEvent();
                               if (_model.signupPasswordTextController.text !=
                                   _model.signupConfirmPasswordTextController

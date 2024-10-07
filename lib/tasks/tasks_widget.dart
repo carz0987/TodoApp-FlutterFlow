@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'tasks_model.dart';
 export 'tasks_model.dart';
 
@@ -25,6 +26,15 @@ class _TasksWidgetState extends State<TasksWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TasksModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (currentJwtToken != '') {
+        return;
+      }
+
+      context.pushNamed('login');
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -196,7 +206,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                         await authManager.signOut();
                         GoRouter.of(context).clearRedirectLocation();
 
-                        context.pushNamedAuth('login', context.mounted);
+                        context.goNamedAuth('login', context.mounted);
                       },
                       text: 'Log Out',
                       options: FFButtonOptions(
